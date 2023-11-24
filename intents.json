@@ -1,7 +1,7 @@
 {
     "intents": [
       {
-        "tag": "suadações",
+        "tag": "saudações",
         "patterns": [
           "Oi",
           "Olá",
@@ -49,7 +49,8 @@
           "Você aceita cartão de crédito?",
           "Você aceita Mastercard?",
           "Posso pagar com o Paypal?",
-          "Vocês só aceitam dinheiro?"
+          "Vocês só aceitam dinheiro?",
+          "Como posso pagar?"
         ],
         "responses": [
           "Aceitamos VISA, Mastercard e Paypal",
