@@ -1,0 +1,167 @@
+{
+    "intents": [
+      {
+        "tag": ["saudações"],
+        "patterns": [
+          "Oi",
+          "Olá",
+          "Como você está",
+          "Tem alguém aí?",
+          "Olá",
+          "Bom dia"
+        ],
+        "responses": [
+          "Oi :-)",
+          "Olá, obrigado pela visita",
+          "Olá, no que posso ajudar?",
+          "Olá, como posso ajudar?"
+        ]
+      },
+      {
+        "tag": ["calendario"],
+        "patterns": [
+          "Qual é o procedimento para acessar o calendário acadêmico?",
+          "Como posso verificar as datas importantes no calendário acadêmico?",
+          "Onde encontro as informações do calendário acadêmico na plataforma online?",
+          "Dentro do sistema, como localizo o calendário acadêmico?",
+          "Pode me orientar sobre como acessar o calendário acadêmico na secretaria?",
+          "Existe alguma seção específica no site para visualizar o calendário acadêmico?",
+          "Posso encontrar as datas cruciais no aplicativo móvel? Como?",
+          "O calendário acadêmico está disponível no mural da faculdade?",
+          "Quais são os passos para visualizar o calendário acadêmico no portal do aluno?",
+          "Há alguma informação sobre o calendário acadêmico nos avisos da instituição?",
+          "Calendário acadêmico",
+          "Calendário",
+          "Calendario",
+          "Como acessar o calendario academico?"
+        ],
+        "responses": [
+          "Navegue até o https://qacademico.ifpe.edu.br e clique no terceiro link da página inicial onde está escrito 'Calendário Acadêmico'",
+          "Acesse o https://qacademico.ifpe.edu.br e localize o terceiro link na página principal com a inscrição 'Calendário Acadêmico' para obter as informações desejadas.",
+          "Acesse https://qacademico.ifpe.edu.br e vá para o terceiro link na página principal, onde está indicado 'Calendário Acadêmico', para encontrar as datas importantes.",
+          "No site https://qacademico.ifpe.edu.br, procure pelo terceiro link na página inicial que indica 'Calendário Acadêmico' e clique para visualizar as datas importantes."
+        ]
+      },
+      {
+        "tag": ["despedida"],
+        "patterns": ["Adeus", "Até logo", "Tchau"],
+        "responses": [
+          "Até logo, obrigado pela visita",
+          "Tenha um bom dia",
+          "Tchau! Volte em breve."
+        ]
+      },
+      {
+        "tag": ["obrigado"],
+        "patterns": ["Obrigado", "Agradeço", "Isso é útil", "Muito obrigado!"],
+        "responses": ["Feliz em ajudar!", "A qualquer momento!", "É um prazer"]
+      },
+      {
+        "tag": ["renovação"],
+        "patterns": [
+          "Como renovar a matricula?",
+          "Qual é o processo para renovar a matrícula?",
+          "Como faço para estender minha matrícula?",
+          "Quais são os passos necessários para renovar minha matrícula?",
+          "Pode me orientar sobre a renovação da matrícula?",
+          "Onde encontro as informações para renovar a matrícula?",
+          "Qual é o procedimento para estender minha matrícula no próximo ano?",
+          "Como devo proceder para garantir a renovação da minha matrícula?",
+          "O que é necessário para renovar minha matrícula para o próximo período?",
+          "Há algum formulário ou processo online para a renovação da matrícula?",
+          "Quais documentos são necessários para a renovação da matrícula?",
+          "quero renovar minha matricula"
+        ],
+        "responses": [
+          "Estudantes do IFPE cursando a partir do segundo módulo. Para renovar a matrícula, faça o login no Q-Acadêmico e siga os passos: 1 - Acesse a área “Renovação de Matrícula” e clique em 'Confirmar'. 2 - Acesse a área 'Pedidos de Matrícula', marque as disciplinas que irá cursar no próximo semestre (2023.2) e clique em 'Salvar'.",
+          "Para renovar a matrícula, os estudantes do IFPE no segundo módulo devem efetuar o login no Q-Acadêmico. Dentro da área 'Renovação de Matrícula', clique em 'Confirmar'. Após, vá para a área 'Pedidos de Matrícula', escolha as disciplinas para o próximo semestre (2023.2) e clique em 'Salvar'.",
+          "Estudantes do IFPE, a partir do segundo módulo, precisam renovar a matrícula. Para isso, acesse o Q-Acadêmico, vá até 'Renovação de Matrícula' e confirme. Em seguida, na área 'Pedidos de Matrícula', selecione as disciplinas para o próximo semestre (2023.2) e salve as escolhas."
+        ]
+      },
+      {
+        "tag": ["horario"],
+        "patterns": [
+          "Como acessar o horario e a sala das disciplinas?",
+          "Como vejo o horário das disciplinas?",
+          "Onde encontro as salas das disciplinas?",
+          "Qual é o caminho para verificar o horário?",
+          "Como descubro minha sala de aula?",
+          "Onde posso ver os horários das aulas?",
+          "Como acesso o horário das disciplinas?",
+          "Qual é o processo para encontrar a sala das aulas?",
+          "Onde encontro as informações sobre o horário das aulas?",
+          "Como posso saber o horário das disciplinas?",
+          "Onde vejo as salas de aula das disciplinas?"
+        ],
+        "responses": [
+          "Acesse o https://qacademico.ifpe.edu.br e localize o segundo link na página principal com a inscrição 'Horário Individual' para obter as informações desejadas.",
+          "Vá para https://qacademico.ifpe.edu.br e, na página inicial, clique no segundo link identificado como 'Horário Individual' para acessar o conteúdo procurado.",
+          "No site https://qacademico.ifpe.edu.br, procure pelo segundo link na página inicial que indica 'Horário Individual' e clique para visualizar os horarios e sala.",
+          "Dirija-se ao https://qacademico.ifpe.edu.br e encontre o segundo link na página inicial que se refere ao 'Horário Individual' - clique para acessar as informações necessárias.",
+          "Acesse https://qacademico.ifpe.edu.br e vá até o segundo link na página inicial, onde está especificado 'Horário Individual', para verificar os horarios importantes."
+        ]
+      },
+      {
+        "tag": ["monitoria"],
+        "patterns": [
+          "como participar de uma monitoria",
+          "Qual é o procedimento para ingressar em uma monitoria?",
+          "Como faço para me envolver em uma monitoria?",
+          "Pode me orientar sobre participar de uma monitoria?",
+          "Quais são os passos para participar de uma monitoria?",
+          "Como ingressar no programa de monitoria?",
+          "monitoria",
+          "participar monitoria"
+        ],
+        "responses": [
+          "O Programa de Monitoria se configura como um programa de incentivo ao corpo discente, visando ampliar o espaço de aprendizagem e o aperfeiçoamento de seu processo de formação na melhoria da qualidade do ensino; os monitores prestam suporte aos docentes e turmas na condução das atividades de Ensino. Para mais informações pesquise sobre monitoria no site do ifpe(https://portal.ifpe.edu.br/)",
+          "A Monitoria no IFPE é um programa que estimula os estudantes, proporcionando um ambiente de aprendizagem expandido e contribuindo para aprimorar o processo de formação. Os monitores oferecem suporte aos professores e turmas nas atividades de ensino. Saiba mais sobre monitoria no site do IFPE (https://portal.ifpe.edu.br/).",
+          "O Programa de Monitoria no IFPE é uma iniciativa que visa enriquecer a experiência dos alunos, promovendo uma melhoria contínua na qualidade do ensino. Os monitores desempenham um papel crucial, apoiando professores e turmas nas atividades acadêmicas. Encontre mais detalhes sobre a monitoria no site do IFPE (https://portal.ifpe.edu.br/).",
+          "Na busca por ampliar a aprendizagem e aprimorar a formação, o Programa de Monitoria no IFPE incentiva os estudantes a participarem ativamente. Os monitores desempenham um papel vital, oferecendo suporte às atividades de ensino. Informações adicionais podem ser encontradas no site do IFPE (https://portal.ifpe.edu.br/)."
+        ]
+      },
+      {
+        "tag": ["extensão"],
+        "patterns": [
+          "Pode explicar o funcionamento dos projetos de extensão?",
+          "Como os projetos de extensão operam?",
+          "Qual é a dinâmica dos projetos de extensão?",
+          "Pode me orientar sobre o modo de operação dos projetos de extensão?",
+          "De que forma acontecem os projetos de extensão?",
+          "Como são estruturados e executados os projetos de extensão?",
+          "Pode fornecer informações sobre o processo de funcionamento dos projetos de extensão?",
+          "Quais são os passos envolvidos nos projetos de extensão?",
+          "Pode me dar uma visão geral de como funcionam os projetos de extensão?",
+          "Como os projetos de extensão são organizados e implementados?",
+          "extensão"
+        ],
+        "responses": [
+          "Estudantes no IFPE podem participar do Programa de Bolsas de Extensão (PIBEX) para envolvimento em Projetos de Extensão. Há bolsas disponíveis para cursos superiores e técnicos. Os projetos são submetidos por servidores ativos do IFPE com nível superior. Coordenadores dos projetos selecionados indicarão estudantes para bolsas. Para mais informações, acesse o site do IFPE.",
+          "Participar de Projetos de Extensão no IFPE é possível através do Programa de Bolsas de Extensão (PIBEX). Bolsas são oferecidas para cursos superiores e técnicos, com projetos submetidos por servidores ativos do IFPE que possuem nível superior. Estudantes são indicados para bolsas pelos coordenadores dos projetos. Para obter mais detalhes, visite o site do IFPE.",
+          "Estudantes no IFPE têm a oportunidade de se envolver em Projetos de Extensão por meio do Programa de Bolsas de Extensão (PIBEX). Bolsas são destinadas a cursos superiores e técnicos, e os projetos são submetidos por servidores ativos do IFPE com nível superior. A seleção de estudantes para as bolsas é feita pelos coordenadores dos projetos. Para informações adicionais, consulte o site do IFPE.",
+          "O IFPE oferece aos estudantes a chance de participar de Projetos de Extensão através do Programa de Bolsas de Extensão (PIBEX). Bolsas estão disponíveis para cursos superiores e técnicos, e os projetos são submetidos por servidores ativos do IFPE com nível superior. Os coordenadores dos projetos serão responsáveis por indicar os estudantes para as bolsas. Para mais detalhes, acesse o site do IFPE."
+        ]
+      },
+      {
+        "tag": ["comprovante"],
+        "patterns": [
+          "Como posso obter o comprovante de matrícula para o semestre?",
+          "Onde encontro o comprovante de matrícula deste semestre?",
+          "Pode me orientar sobre como acessar o comprovante de matrícula do semestre?",
+          "Qual é o procedimento para obter o comprovante de matrícula deste semestre?",
+          "Onde posso encontrar o documento que comprova minha matrícula no semestre?",
+          "Como faço para visualizar o comprovante de matrícula referente a este semestre?",
+          "Existe uma seção específica para acessar o comprovante de matrícula deste semestre?",
+          "Pode me explicar como localizar e baixar o comprovante de matrícula atual?",
+          "Qual é o caminho para encontrar o comprovante de matrícula do semestre vigente?",
+          "Onde devo ir para acessar o comprovante de matrícula deste semestre?"
+        ],
+        "responses": [
+          "Acesse o https://qacademico.ifpe.edu.br e localize e clique no link 'Solicitar Documentos'. Se você já teve alguma solicitação feita ela aparecerá em 'Solicitações Realizadas'. Clique em 'Nova Solicitação', selecione o documento 'Atestado Matrícula para alunos devidamente matriculados no ano-semestre', escolha o ano desejado e em seguida clique em 'Solicitar Documento'. Ele fará o download automaticamente. Caso não ocorra, clique na última solicitação feita e ele iniciará o download.",
+          "Vá até https://qacademico.ifpe.edu.br, encontre e clique na opção 'Solicitar Documentos'. Caso já tenha feito alguma solicitação, verifique em 'Solicitações Realizadas'. Para uma nova solicitação, clique em 'Nova Solicitação', escolha 'Atestado Matrícula para alunos matriculados no ano-semestre', selecione o ano desejado e clique em 'Solicitar Documento'. O download será automático; se não, clique na última solicitação para iniciar o download.",
+          "No site https://qacademico.ifpe.edu.br, acesse 'Solicitar Documentos' e clique em 'Nova Solicitação'. Selecione 'Atestado Matrícula para alunos matriculados no ano-semestre', escolha o ano e clique em 'Solicitar Documento'. O download começará automaticamente; se não, clique na última solicitação para baixar."
+        ]
+      }
+    ]
+  }
+  
