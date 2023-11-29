@@ -1,8 +1,7 @@
-from flask import Flask, request, jsonify
 import spacy
 import json
 import random
-import re
+from flask import Flask, request, jsonify
 
 app = Flask(__name__)
 
@@ -50,18 +49,6 @@ class SimpleChatBot:
         pattern_tokens = nlp(pattern)
         return max(doc.similarity(pattern_tokens), pattern_tokens.similarity(doc))
     
-    def encontrar_resposta_por_tags(self, pergunta, intents):
-        respostas = []
-        # Percorra cada entrada de pergunta-resposta no JSON
-        for intent in intents:
-            # Converta as tags da entrada atual para minúsculas
-            tags = intent["tag"]
-
-            # Verifique se pelo menos uma tag está presente na pergunta
-            if any(tag in pergunta for tag in tags):
-                respostas.extend(intent["responses"])
-
-        return respostas
 
 # Carregando o modelo do spaCy
 nlp = spacy.load("pt_core_news_md")
@@ -83,4 +70,4 @@ def chat():
 
 # Executando o aplicativo Flask localmente
 if __name__ == '__main__':
-    app.run(debug=True, port=5000)
+    app.run(host='0.0.0.0', debug=True, port=5000)
