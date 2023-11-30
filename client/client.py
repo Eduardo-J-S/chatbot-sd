@@ -1,12 +1,12 @@
 import requests
 from flask import Flask, render_template, request, jsonify
 
-app = Flask(__name__, static_url_path='/static')
+app = Flask(__name__)
 
 print("Aplicação Flask iniciada!")
 
 # URL da API do chatbot
-api_url = 'http://127.0.0.1:5000/chat'
+api_url = 'http://chatbot-server-service:5000/chat'
 
 # Histórico do chat
 chat_history = []
@@ -32,4 +32,4 @@ def get_chatbot_response(user_input):
         return f"Erro na solicitação: {response.status_code}"
 
 if __name__ == '__main__':
-    app.run(debug=True, port=5001)
+    app.run(host='0.0.0.0', debug=True, port=5001)

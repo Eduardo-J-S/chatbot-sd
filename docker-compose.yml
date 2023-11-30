@@ -1,0 +1,23 @@
+version: '3'
+services:
+  client:
+    build:
+      context: ./client
+      dockerfile: Dockerfile
+    image: eduardo123456789/chatbot-sd-client
+    ports:
+      - "5001:5001"
+  server:
+    build:
+      context: ./server
+      dockerfile: Dockerfile
+    image: eduardo123456789/chatbot-sd-server
+    ports:
+      - "5000:5000"
+  nginx:
+    build:
+      context: ./client
+      dockerfile: Dockerfile.nginx
+    image: eduardo123456789/chatbot-sd-nginx
+    ports:
+      - "8081:80"

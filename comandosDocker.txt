@@ -1,0 +1,57 @@
+docker login
+
+cd server
+
+docker build -t eduardo123456789/chatbot-server-image .
+
+docker images or docker ps -a
+
+docker run -p 5000:5000 -d eduardo123456789/chatbot-server-image
+
+cd client
+
+docker build -t eduardo123456789/chatbot-client-image .
+
+docker images
+
+docker run -p 5001:5001 -d eduardo123456789/chatbot-client-image
+
+docker ps
+
+
+--------------------------------------------------------------------------------------
+minikube start
+
+kubectl config use-context minikube
+
+docker-compose build
+
+docker-compose up
+
+docker push eduardo123456789/chatbot-sd-client
+
+docker push eduardo123456789/chatbot-sd-nginx
+
+docker push eduardo123456789/chatbot-sd-server
+
+docker pull eduardo123456789/chatbot-sd-server
+
+docker pull eduardo123456789/chatbot-sd-client
+
+docker pull eduardo123456789/chatbot-sd-nginx
+
+
+./server/k8s
+	kubectl apply -f deployment-server.yaml
+	kubectl apply -f service-server.yaml
+
+./client/k8s
+	kubectl apply -f deployment-client.yaml
+	kubectl apply -f service-client.yaml
+	kubectl apply -f nginx-service.yaml
+	kubectl apply -f nginx-deployment.yaml
+
+kubectl get pods
+kubectl get services
+
+minikube service client-deployment
