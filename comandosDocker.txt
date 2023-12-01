@@ -19,6 +19,11 @@ docker run -p 5001:5001 -d eduardo123456789/chatbot-client-image
 docker ps
 
 
+#apagar pods
+	kubectl delete --all deployments,services
+
+	kubectl delete -f <nome-yaml>
+
 --------------------------------------------------------------------------------------
 minikube start
 
@@ -27,6 +32,8 @@ kubectl config use-context minikube
 docker-compose build
 
 docker-compose up
+
+(*docker-compose down = apagar containers)
 
 docker push eduardo123456789/chatbot-sd-client
 

@@ -6,7 +6,7 @@ app = Flask(__name__)
 print("Aplicação Flask iniciada!")
 
 # URL da API do chatbot
-api_url = 'http://chatbot-server-service:5000/chat'
+api_url = 'http://server:5000/chat'
 
 # Histórico do chat
 chat_history = []
