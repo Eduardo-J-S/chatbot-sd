@@ -1,64 +1,47 @@
 import requests
 from flask import Flask, render_template, request, jsonify
+from flask_socketio import SocketIO
 
 app = Flask(__name__)
+socketio = SocketIO(app)
 
 # URL da API do chatbot
-api_url = 'https://chatbot-sd-server.onrender.com'
+api_url = 'http://127.0.0.1:5000'
 
 # Histórico do chat
 chat_history = []
-
-# Token de autenticação
-token = None
-
-@app.route('/login', methods=['GET'])
-def show_login():
-    return render_template('login.html')
 
 @app.route('/')
 def index():
     return render_template('index.html', chat_history=chat_history)
 
-# No client.py, altere a função login
-@app.route('/login', methods=['POST'])
-def login():
-    global token
-    username = request.form['username']
-    password = request.form['password']
+@socketio.on('message')
+def handle_message(data):
+    chat_history.append({'user_input': data['user_input'], 'chatbot_response': data['response']})
+    socketio.emit('update_chat', {'chat_history': chat_history})
 
-    data = {'username': username, 'password': password}
-    response = requests.post(f'{api_url}/login', json=data, timeout=30)
+@socketio.on('connect')
+def handle_connect():
+    socketio.emit('update_chat', {'chat_history': chat_history})
 
-    if response.status_code == 200:
-        token = response.json()['access_token']
-        return 'Login realizado com sucesso.'
-    else:
-        try:
-            # Tente fazer o parsing da resposta como JSON apenas se a requisição for bem-sucedida
-            response_data = response.json()
-            return f'Erro no login: {response.status_code} - {response_data}'
-        except:
-            # Se ocorrer um erro ao fazer o parsing, retorne uma mensagem genérica de erro
-            return f'Erro no login: {response.status_code} - Resposta inválida'
-
+# Adicione esta rota para lidar com mensagens enviadas pelo cliente
 @app.route('/send_message', methods=['POST'])
 def send_message():
-    global token
-    if not token:
-        return 'Faça o login primeiro.'
+    user_input = request.form.get('user_input')
 
-    user_input = request.form['user_input']
-    headers = {'Authorization': f'Bearer {token}'}
-    data = {'user_input': user_input}
-    response = requests.post(f'{api_url}/chat', json=data, headers=headers)
-    
-    if response.status_code == 200:
-        response_data = response.json()
-        chat_history.append({'user_input': user_input, 'chatbot_response': response_data['response']})
-        return render_template('index.html', chat_history=chat_history)
-    else:
-        return f"Erro na solicitação: {response.status_code}"
+    # Faz uma requisição interna para obter a resposta do chatbot
+    chatbot_response = get_chatbot_response(user_input)
+
+    # Adiciona a mensagem do usuário e a resposta do chatbot ao histórico do chat
+    chat_history.append({'user_input': user_input, 'chatbot_response': 'ChatBot: ' + chatbot_response})
+    return render_template('index.html', chat_history=chat_history)
+
+def get_chatbot_response(user_input):
+    # Faz uma requisição interna para o endpoint /chat
+    response = requests.post(f'{api_url}/chat', json={'user_input': user_input})
+    # Obtém a resposta do chatbot a partir da resposta da requisição
+    chatbot_response = response.json().get('response', '')
+    return chatbot_response
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', debug=False, port=5001)
+    socketio.run(app, host='0.0.0.0', port=5001)

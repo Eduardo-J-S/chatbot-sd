@@ -4,7 +4,8 @@ WORKDIR /app
 
 COPY requirements.txt requirements.txt
 RUN pip install --upgrade pip && pip install -r requirements.txt
-RUN python -m spacy download pt_core_news_md
+RUN python -m spacy download 
+RUN pip install gunicorn
 
 COPY package*.json ./
 COPY . .
