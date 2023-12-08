@@ -8,10 +8,10 @@ import socket
 app = Flask(__name__)
 CORS(app)
 
-# Carregando o modelo do spaCy
+
 nlp = spacy.load("pt_core_news_md")
 
-# Carregando as intenções do arquivo JSON
+
 with open("intents.json", encoding='utf-8') as f:
     intents = json.load(f)
 
@@ -54,10 +54,10 @@ class SimpleChatBot:
         pattern_tokens = nlp(pattern)
         return max(doc.similarity(pattern_tokens), pattern_tokens.similarity(doc))
 
-# Dicionário para armazenar instâncias individuais de chatbot e histórico por sessão
+
 chat_sessions = {}
 
-# Endpoint para receber mensagens do usuário e retornar respostas do chatbot
+
 @app.route('/', methods=['POST'])
 def chat():
     data = request.get_json()

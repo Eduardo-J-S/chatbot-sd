@@ -1,41 +1,39 @@
 import requests
-from flask import Flask, render_template, request, jsonify
+from flask import Flask, render_template, request, make_response, session
 import uuid
-from flask import make_response
 
-app = Flask(__name__)
+app = Flask(_name_)
+app.secret_key = 'sua_chave_secreta' 
 
 print("Aplicação Flask iniciada!")
 
-# URL da API do chatbot
-api_url = 'http://localhost:61543'
+api_url = 'http://server:5000'
 
-# Dicionário para armazenar instâncias individuais de chatbot e histórico por sessão
 chat_sessions = {}
 
 @app.route('/')
 def index():
-    # Gera um identificador de sessão para o usuário
-    session_id = request.cookies.get('session_id')
-    if session_id is None:
-        session_id = str(uuid.uuid4())
-        chat_sessions[session_id] = {'chat_history': []}
+    session_id = session.get('session_id') or str(uuid.uuid4())
+    session['session_id'] = session_id
 
-    content = render_template('index.html', chat_history=chat_sessions[session_id]['chat_history'], session_id=session_id)
+    print("Session ID:", session_id)
+    content = render_template('index.html', chat_history=chat_sessions.get(session_id, {'chat_history': []})['chat_history'], session_id=session_id)
     
-    # Define o cookie para a sessão
     response = make_response(content)
-    response.set_cookie('session_id', session_id)
     
     return response
 
 @app.route('/send_message', methods=['POST'])
 def send_message():
     user_input = request.form['user_input']
-    session_id = request.cookies.get('session_id')
+    session_id = session.get('session_id')
     chatbot_response = get_chatbot_response(session_id, user_input)
-    chat_sessions[session_id]['chat_history'].append({'user_input': user_input, 'chatbot_response': chatbot_response})
-    return render_template('index.html', chat_history=chat_sessions[session_id]['chat_history'], session_id=session_id)
+    
+    chat_history = chat_sessions.get(session_id, {'chat_history': []})['chat_history']
+    chat_history.append({'user_input': user_input, 'chatbot_response': chatbot_response})
+    chat_sessions[session_id] = {'chat_history': chat_history}
+    
+    return render_template('index.html', chat_history=chat_history, session_id=session_id)
 
 def get_chatbot_response(session_id, user_input):
     data = {'user_input': user_input, 'session_id': session_id}
@@ -46,5 +44,5 @@ def get_chatbot_response(session_id, user_input):
     else:
         return f"Erro na solicitação: {response.status_code}"
 
-if __name__ == '__main__':
+if _name_ == '_main_':
     app.run(host='0.0.0.0', debug=True, port=5001)
