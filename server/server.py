@@ -2,11 +2,10 @@ import spacy
 import json
 import random
 from flask import Flask, request, jsonify
-from flask_socketio import SocketIO, emit
 from flask_cors import CORS
+import socket
 
 app = Flask(__name__)
-socketio = SocketIO(app)
 CORS(app)
 
 # Carregando o modelo do spaCy
@@ -47,7 +46,7 @@ class SimpleChatBot:
                 best_match = best_match_tag["responses"]    
 
         if best_match:
-            return random.choice(best_match)
+            return random.choice(best_match) + f"Container ID: {socket.gethostname()}"
         else:
             return "Desculpe, eu não entendi. Pode reformular?"
 
@@ -55,25 +54,27 @@ class SimpleChatBot:
         pattern_tokens = nlp(pattern)
         return max(doc.similarity(pattern_tokens), pattern_tokens.similarity(doc))
 
-# Inicializando o chatbot
-chatbot = SimpleChatBot(intents)
-
-@socketio.on('connect')
-def handle_connect():
-    emit('message', {'response': 'Conexão estabelecida'})
-
-@socketio.on('user_message')
-def handle_user_message(data):
-    user_input = data['user_input']
-    response = chatbot.get_response(user_input)
-    emit('message', {'response': response})
+# Dicionário para armazenar instâncias individuais de chatbot e histórico por sessão
+chat_sessions = {}
 
 # Endpoint para receber mensagens do usuário e retornar respostas do chatbot
-@app.route('/chat', methods=['POST'])
+@app.route('/', methods=['POST'])
 def chat():
-    user_input = request.get_json()['user_input']
+    data = request.get_json()
+    user_input = data['user_input']
+    session_id = data['session_id']
+
+    # Verifica se já existe uma instância de chatbot para a sessão
+    if session_id not in chat_sessions:
+        chat_sessions[session_id] = {'chatbot': SimpleChatBot(intents), 'chat_history': []}
+
+    chatbot = chat_sessions[session_id]['chatbot']
     response = chatbot.get_response(user_input)
+
+    # Atualiza o histórico da sessão
+    chat_sessions[session_id]['chat_history'].append({'user_input': user_input, 'chatbot_response': response})
+
     return jsonify({'response': response})
 
 if __name__ == '__main__':
-    socketio.run(app, host='0.0.0.0', port=5000)
+    app.run(host='0.0.0.0', port=5000)

@@ -4,13 +4,10 @@ WORKDIR /app
 
 COPY requirements.txt requirements.txt
 RUN pip install --upgrade pip && pip install -r requirements.txt
-RUN python -m spacy download 
+RUN python -m spacy download pt_core_news_md
 RUN pip install gunicorn
 
 COPY package*.json ./
 COPY . .
 
-# Exponha a porta do servidor Flask
-EXPOSE 5000
-
-CMD ["python", "server.py"]
+CMD gunicorn --bind 0.0.0.0:5000 server:app

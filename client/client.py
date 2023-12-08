@@ -1,47 +1,50 @@
 import requests
 from flask import Flask, render_template, request, jsonify
-from flask_socketio import SocketIO
+import uuid
+from flask import make_response
 
 app = Flask(__name__)
-socketio = SocketIO(app)
+
+print("Aplicação Flask iniciada!")
 
 # URL da API do chatbot
-api_url = 'http://127.0.0.1:5000'
+api_url = 'http://localhost:61543'
 
-# Histórico do chat
-chat_history = []
+# Dicionário para armazenar instâncias individuais de chatbot e histórico por sessão
+chat_sessions = {}
 
 @app.route('/')
 def index():
-    return render_template('index.html', chat_history=chat_history)
+    # Gera um identificador de sessão para o usuário
+    session_id = request.cookies.get('session_id')
+    if session_id is None:
+        session_id = str(uuid.uuid4())
+        chat_sessions[session_id] = {'chat_history': []}
 
-@socketio.on('message')
-def handle_message(data):
-    chat_history.append({'user_input': data['user_input'], 'chatbot_response': data['response']})
-    socketio.emit('update_chat', {'chat_history': chat_history})
+    content = render_template('index.html', chat_history=chat_sessions[session_id]['chat_history'], session_id=session_id)
+    
+    # Define o cookie para a sessão
+    response = make_response(content)
+    response.set_cookie('session_id', session_id)
+    
+    return response
 
-@socketio.on('connect')
-def handle_connect():
-    socketio.emit('update_chat', {'chat_history': chat_history})
-
-# Adicione esta rota para lidar com mensagens enviadas pelo cliente
 @app.route('/send_message', methods=['POST'])
 def send_message():
-    user_input = request.form.get('user_input')
+    user_input = request.form['user_input']
+    session_id = request.cookies.get('session_id')
+    chatbot_response = get_chatbot_response(session_id, user_input)
+    chat_sessions[session_id]['chat_history'].append({'user_input': user_input, 'chatbot_response': chatbot_response})
+    return render_template('index.html', chat_history=chat_sessions[session_id]['chat_history'], session_id=session_id)
 
-    # Faz uma requisição interna para obter a resposta do chatbot
-    chatbot_response = get_chatbot_response(user_input)
-
-    # Adiciona a mensagem do usuário e a resposta do chatbot ao histórico do chat
-    chat_history.append({'user_input': user_input, 'chatbot_response': 'ChatBot: ' + chatbot_response})
-    return render_template('index.html', chat_history=chat_history)
-
-def get_chatbot_response(user_input):
-    # Faz uma requisição interna para o endpoint /chat
-    response = requests.post(f'{api_url}/chat', json={'user_input': user_input})
-    # Obtém a resposta do chatbot a partir da resposta da requisição
-    chatbot_response = response.json().get('response', '')
-    return chatbot_response
+def get_chatbot_response(session_id, user_input):
+    data = {'user_input': user_input, 'session_id': session_id}
+    response = requests.post(api_url, json=data)
+    if response.status_code == 200:
+        response_data = response.json()
+        return response_data['response']
+    else:
+        return f"Erro na solicitação: {response.status_code}"
 
 if __name__ == '__main__':
-    socketio.run(app, host='0.0.0.0', port=5001)
+    app.run(host='0.0.0.0', debug=True, port=5001)

@@ -13,8 +13,5 @@ RUN pip install -r requirements.txt
 # Copie o conteúdo do diretório atual para o diretório de trabalho
 COPY . .
 
-# Exponha a porta 5001
-#EXPOSE 5001
-
 # Inicie a aplicação Flask quando o contêiner for iniciado
-CMD ["python", "client.py"]
+CMD gunicorn --bind 0.0.0.0:5001 client:app
