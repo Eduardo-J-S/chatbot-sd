@@ -2,7 +2,7 @@ import requests
 from flask import Flask, render_template, request, make_response, session
 import uuid
 
-app = Flask(_name_)
+app = Flask(__name__)
 app.secret_key = 'sua_chave_secreta' 
 
 print("Aplicação Flask iniciada!")
@@ -44,5 +44,5 @@ def get_chatbot_response(session_id, user_input):
     else:
         return f"Erro na solicitação: {response.status_code}"
 
-if _name_ == '_main_':
+if __name__ == '__main__':
     app.run(host='0.0.0.0', debug=True, port=5001)
